@@ -3,6 +3,7 @@
 // found in the LICENSE file.
 
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/services.dart';
 
@@ -32,6 +33,8 @@ class PackageInfo {
 
   static PackageInfo _fromPlatform;
 
+  static Map<String, dynamic> _metaData;
+
   /// Retrieves package information from the platform.
   /// The result is cached.
   static Future<PackageInfo> fromPlatform() async {
@@ -51,6 +54,19 @@ class PackageInfo {
     return _fromPlatform;
   }
 
+  /// Retrieves meta data information from the AndroidManifest.xml.
+  /// The result is cached.
+  static Future<Map<String, dynamic>> fromMetaData() async {
+    if (!Platform.isAndroid) return null;
+    if (_metaData != null) {
+      return _metaData;
+    }
+    final Map<String, dynamic> map =
+    await _kChannel.invokeMapMethod<String, dynamic>('getAll');
+    _metaData = map;
+    return map;
+  }
+
   /// The app name. `CFBundleDisplayName` on iOS, `application/label` on Android.
   final String appName;
 
@@ -62,4 +78,5 @@ class PackageInfo {
 
   /// The build number. `CFBundleVersion` on iOS, `versionCode` on Android.
   final String buildNumber;
+
 }
