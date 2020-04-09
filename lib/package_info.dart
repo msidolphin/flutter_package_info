@@ -56,7 +56,7 @@ class PackageInfo {
 
   /// Retrieves meta data information from the AndroidManifest.xml.
   /// The result is cached.
-  static Future<Map<String, dynamic>> fromMetaData() async {
+  static Future<Map<String, dynamic>> withMetaData() async {
     if (!Platform.isAndroid) return null;
     if (_metaData != null) {
       return _metaData;

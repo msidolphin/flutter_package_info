@@ -49,6 +49,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Future<void> _initPackageInfo() async {
     final PackageInfo info = await PackageInfo.fromPlatform();
+    print(await PackageInfo.withMetaData());
     setState(() {
       _packageInfo = info;
     });
