@@ -29,6 +29,7 @@ class PackageInfo {
     this.packageName,
     this.version,
     this.buildNumber,
+    this.versionCode,
   });
 
   static PackageInfo _fromPlatform;
@@ -50,6 +51,7 @@ class PackageInfo {
       packageName: map["packageName"],
       version: map["version"],
       buildNumber: map["buildNumber"],
+      versionCode: map['versionCode']
     );
     return _fromPlatform;
   }
@@ -75,6 +77,9 @@ class PackageInfo {
 
   /// The package version. `CFBundleShortVersionString` on iOS, `versionName` on Android.
   final String version;
+
+  /// The package versionCode. only support in android
+  final String versionCode;
 
   /// The build number. `CFBundleVersion` on iOS, `versionCode` on Android.
   final String buildNumber;
