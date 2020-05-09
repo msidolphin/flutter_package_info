@@ -15,15 +15,21 @@
 
 - (void)handleMethodCall:(FlutterMethodCall*)call result:(FlutterResult)result {
   if ([call.method isEqualToString:@"getAll"]) {
-    result(@{
-      @"appName" : [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"]
-          ?: [NSNull null],
-      @"packageName" : [[NSBundle mainBundle] bundleIdentifier] ?: [NSNull null],
-      @"version" : [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"]
-          ?: [NSNull null],
-      @"buildNumber" : [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]
-          ?: [NSNull null],
-    });
+      NSDictionary *replaceKey = @{
+          @"CFBundleDisplayName":@"appName",
+          @"CFBundleShortVersionString":@"version",
+          @"CFBundleVersion":@"buildNumber",
+          @"CFBundleIdentifier":@"packageName"
+      };
+      NSMutableDictionary *infoDic = [NSMutableDictionary new];
+      NSDictionary *info = [NSBundle mainBundle].infoDictionary;
+      for (NSString *key in info.allKeys) {
+          if ([replaceKey objectForKey:key]) {
+            [infoDic setValue:[info objectForKey:key] forKey:[replaceKey objectForKey:key]];
+          }else
+          [infoDic setValue:[info objectForKey:key] forKey:key];
+      }
+      result(infoDic);
   } else {
     result(FlutterMethodNotImplemented);
   }

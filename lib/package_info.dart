@@ -45,7 +45,6 @@ class PackageInfo {
 
     final Map<String, dynamic> map =
         await _kChannel.invokeMapMethod<String, dynamic>('getAll');
-    print(map);
     _fromPlatform = PackageInfo(
       appName: map["appName"],
       packageName: map["packageName"],
@@ -59,7 +58,6 @@ class PackageInfo {
   /// Retrieves meta data information from the AndroidManifest.xml.
   /// The result is cached.
   static Future<Map<String, dynamic>> withMetaData() async {
-    if (!Platform.isAndroid) return null;
     if (_metaData != null) {
       return _metaData;
     }
