@@ -34,7 +34,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  PackageInfo _packageInfo = PackageInfo(
+  GPackageInfo _packageInfo = GPackageInfo(
     appName: 'Unknown',
     packageName: 'Unknown',
     version: 'Unknown',
@@ -48,8 +48,8 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future<void> _initPackageInfo() async {
-    final PackageInfo info = await PackageInfo.fromPlatform();
-    print(await PackageInfo.withMetaData());
+    final GPackageInfo info = await GPackageInfo.fromPlatform();
+    print(await GPackageInfo.withMetaData());
     setState(() {
       _packageInfo = info;
     });

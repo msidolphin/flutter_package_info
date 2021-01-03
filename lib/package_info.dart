@@ -17,14 +17,14 @@ const MethodChannel _kChannel =
 /// PackageInfo packageInfo = await PackageInfo.fromPlatform()
 /// print("Version is: ${packageInfo.version}");
 /// ```
-class PackageInfo {
-  /// Constructs an instance with the given values for testing. [PackageInfo]
+class GPackageInfo {
+  /// Constructs an instance with the given values for testing. [GPackageInfo]
   /// instances constructed this way won't actually reflect any real information
   /// from the platform, just whatever was passed in at construction time.
   ///
-  /// See [fromPlatform] for the right API to get a [PackageInfo] that's
+  /// See [fromPlatform] for the right API to get a [GPackageInfo] that's
   /// actually populated with real data.
-  PackageInfo({
+  GPackageInfo({
     this.appName,
     this.packageName,
     this.version,
@@ -32,20 +32,20 @@ class PackageInfo {
     this.versionCode,
   });
 
-  static PackageInfo _fromPlatform;
+  static GPackageInfo _fromPlatform;
 
   static Map<String, dynamic> _metaData;
 
   /// Retrieves package information from the platform.
   /// The result is cached.
-  static Future<PackageInfo> fromPlatform() async {
+  static Future<GPackageInfo> fromPlatform() async {
     if (_fromPlatform != null) {
       return _fromPlatform;
     }
 
     final Map<String, dynamic> map =
         await _kChannel.invokeMapMethod<String, dynamic>('getAll');
-    _fromPlatform = PackageInfo(
+    _fromPlatform = GPackageInfo(
       appName: map["appName"],
       packageName: map["packageName"],
       version: map["version"],
