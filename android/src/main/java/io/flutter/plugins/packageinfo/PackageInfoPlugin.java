@@ -38,7 +38,7 @@ public class PackageInfoPlugin implements MethodCallHandler, FlutterPlugin {
 
   private void onAttachedToEngine(Context applicationContext, BinaryMessenger messenger) {
     this.applicationContext = applicationContext;
-    methodChannel = new MethodChannel(messenger, "plugins.flutter.io/package_info");
+    methodChannel = new MethodChannel(messenger, "plugins.flutter.io/g_package_info");
     methodChannel.setMethodCallHandler(this);
   }
 
